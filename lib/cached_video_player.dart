@@ -464,7 +464,10 @@ class _CachedVideoPlayerState extends State<CachedVideoPlayer> {
   @override
   void didUpdateWidget(CachedVideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    oldWidget.controller.removeListener(_listener);
+    // oldWidget.controller.removeListener(_listener);
+    if (oldWidget.controller._isDisposed == false) {
+      oldWidget.controller.removeListener(_listener);
+    }
     _textureId = widget.controller.textureId;
     widget.controller.addListener(_listener);
   }
