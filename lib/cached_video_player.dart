@@ -183,14 +183,15 @@ class CachedVideoPlayerController
   bool _isDisposed = false;
   Completer<void> _creatingCompleter;
   StreamSubscription<dynamic> _eventSubscription;
-  _VideoAppLifeCycleObserver _lifeCycleObserver;
+  //去掉生命周期监听,因为退到后台需要继续播放
+  // _VideoAppLifeCycleObserver _lifeCycleObserver;
 
   @visibleForTesting
   int get textureId => _textureId;
 
   Future<void> initialize() async {
-    _lifeCycleObserver = _VideoAppLifeCycleObserver(this);
-    _lifeCycleObserver.initialize();
+    // _lifeCycleObserver = _VideoAppLifeCycleObserver(this);
+    // _lifeCycleObserver.initialize();
     _creatingCompleter = Completer<void>();
     Map<dynamic, dynamic> dataSourceDescription;
     switch (dataSourceType) {
@@ -285,7 +286,7 @@ class CachedVideoPlayerController
           <String, dynamic>{'textureId': _textureId},
         );
       }
-      _lifeCycleObserver.dispose();
+      // _lifeCycleObserver.dispose();
     }
     _isDisposed = true;
     super.dispose();
